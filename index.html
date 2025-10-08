@@ -1,282 +1,224 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>두근두근 방과후 소식지</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2025년 10월호 두근두근 방과후 소식지</title>
+  <meta name="description" content="두근두근 방과후 2025년 10월호 소식지" />
   <style>
-    body {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      background-color: #d8e8d8;
-      margin: 0;
-      padding: 40px 0;
-      color: #333;
+    :root{
+      --bg:#fffef8;
+      --ink:#1f2430;
+      --sub:#5b6b88;
+      --brand:#1f7a54;
+      --accent:#ffb347;
+      --paper:#ffffff;
+      --shadow:0 8px 24px rgba(0,0,0,.08);
+      --radius:16px;
+      --max:980px;
     }
-    .newspaper {
-      width: 900px;
-      margin: auto;
-      background: #fffef5;
-      padding: 40px;
-      border: 8px double #333;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
-      position: relative;
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "맑은 고딕", sans-serif;}
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:var(--max);margin:auto;padding:16px}
+    .card{background:var(--paper);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(16px,2.5vw,28px);}
+
+    /* 헤더 (표지형 히어로) */
+    .hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#e9f7f1,#fff1df)}
+    .hero-inner{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
+    .hero h1{margin:0;font-size:clamp(28px,4vw,40px);line-height:1.15}
+    .hero .meta{color:var(--sub);font-size:clamp(14px,1.6vw,16px);margin-top:8px}
+    .hero .badge{display:inline-block;margin-top:12px;background:#1f7a54; color:#fff;padding:.4rem .7rem;border-radius:999px;font-weight:700;font-size:14px}
+    .hero-illust{aspect-ratio:4/3;border-radius:14px;overflow:hidden;border:4px solid #fff;box-shadow:var(--shadow);background:#eef5ff url('images/cover.jpg') center/cover no-repeat}
+    .logo-row{display:flex;gap:12px;align-items:center;margin-top:8px}
+    .logo{width:56px;height:56px;border-radius:12px;object-fit:contain;background:#fff;border:1px solid #e6e6e6}
+
+    /* 섹션 헤더 */
+    .section{margin:28px 0}
+    .section h2{
+      margin:0 0 12px 0;
+      font-size:clamp(22px,2.6vw,28px);
+      display:flex;align-items:center;gap:10px;
     }
-    .logo {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      width: 100px;
-      height: auto;
+    .section h2 .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);display:inline-block}
+
+    /* 안내 네비 (바로가기) */
+    .quicknav{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+    .quicknav a{display:inline-flex;gap:8px;align-items:center;background:#f6faf8;border:1px solid #e7efe9;border-radius:999px;padding:8px 12px;font-size:14px;white-space:nowrap}
+    .quicknav a:hover{background:#eef6f2}
+
+    /* 그리드/갤러리 */
+    .grid{display:grid;gap:14px}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .thumb{border-radius:12px;overflow:hidden;border:3px solid #fff;box-shadow:var(--shadow);background:#f3f6fb}
+    .thumb img{display:block;width:100%;height:auto}
+
+    /* 표 스타일 */
+    table{width:100%;border-collapse:collapse;border-radius:12px;overflow:hidden}
+    thead th{background:#f3f7ff;font-weight:700}
+    th,td{border:1px solid #e8ecf3;padding:10px;font-size:15px}
+
+    /* 푸터 */
+    .footer{margin:24px 0 48px;color:var(--sub);text-align:center;font-size:14px}
+    .social a{display:inline-flex;align-items:center;gap:6px;margin:0 8px}
+
+    /* 모바일 */
+    @media (max-width:800px){
+      .hero-inner{grid-template-columns:1fr}
+      .hero-illust{order:-1}
+      .grid.cols-3{grid-template-columns:repeat(2,1fr)}
     }
-    .header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .header h1 {
-      font-size: 3em;
-      margin: 0;
-      color: #222;
-    }
-    .header p {
-      font-size: 1.2em;
-      color: #777;
-    }
-    .section {
-      margin-bottom: 40px;
-    }
-    .section h2 {
-      font-size: 2em;
-      color: #333333;
-      background-color: #ffefd5;
-      padding: 12px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      text-align: center;
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-      font-weight: bold;
-    }
-    .section p, .section ul {
-      font-size: 1.1em;
-      line-height: 1.8;
-    }
-    .image-frame, .grade-image-frame, .gallery {
-      margin-top: 20px;
-      text-align: center;
-    }
-    .image-frame img, .grade-image-frame img {
-      width: 45%;
-      margin: 10px;
-      border-radius: 8px;
-      border: 4px solid #ccc;
-      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-    .gallery img {
-      width: 90%;
-      border: 8px ridge #f4a460;
-      border-radius: 20px;
-      padding: 10px;
-      background-color: #fffaf0;
-      box-shadow: 4px 4px 12px rgba(0,0,0,0.15);
-      transition: transform 0.3s;
-    }
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
-    .footer {
-      text-align: center;
-      font-size: 0.9em;
-      color: #555;
-      margin-top: 60px;
+    @media (max-width:520px){
+      .grid.cols-2,.grid.cols-3{grid-template-columns:1fr}
+      /* 작은 화면에서 머리글 겹침 방지 */
+      .logo-row{flex-wrap:wrap}
     }
   </style>
-  <script>
-    window.onload = function () {
-      const saved = localStorage.getItem("savedNewsletterContent");
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          const target = document.getElementById("dynamic-story");
-          if (parsed.text) {
-            target.innerHTML = `<p>${parsed.text}</p>`;
-          }
-          if (parsed.image) {
-            target.innerHTML += `<img src="${parsed.image}" style="width:45%; margin:10px; border-radius:8px; border:4px solid #ccc; box-shadow:2px 2px 8px rgba(0,0,0,0.1);">`;
-          }
-        } catch (e) {
-          console.error("로딩 오류:", e);
-        }
-      }
-    };
-  </script>
 </head>
 <body>
-  <div class="newspaper">
-    <img src="두근두근로고(배경없음).png" alt="두근두근 로고" class="logo">
-    <div class="header">
-      <h1>두근두근 방과후 소식지</h1>
-      <p>2025년 5월호 (창간호) | 우리 아이들의 특별한 이야기</p>
-      <div style="border: 1px solid #ccc; padding: 8px; margin-top: 10px; font-size: 0.9em; display: flex; justify-content: center; gap: 30px;">
-        <span>이사장 : 딱지</span>
-        <span>발행인 : 운영위원회</span>
-        <span>편집인 : 생활이사 바스켓</span>
-        <span>이천이십오년오월두근두근방과후첫번째소식지</span>
-      </div>
-    </div>
-<div class="chairman-message">
-  <h2 style="font-size: 1.8em; text-align: center; margin-bottom: 1em;">📰 이사장 인사말</h2>
-  <p style="line-height: 1.8; font-size: 1.1em;">
-    안녕하세요.<br><br>
-    생활이사님의 수고로 <strong>두근 소식지</strong>를 창간하게 되었습니다. 소문에 AI 비서를 혹독하게 조련하고 계신다고 하네요. 
-    기술이 발달하여 수고로움이 조금 덜 해졌다 하더라도 이렇게 소식지가 창간 가능했던 건 
-    생활이사님이 두근에 대한 <strong>큰 애정</strong>이 있었기 때문이겠지요.<br><br>
-    
-    두근이 과천에서 어린이들의 놀이 및 생활 공간으로 <strong>24년 이상</strong> 함께 해올 수 있었던 건, 
-    이처럼 아마분들이 보여주신 애정과 노력 덕분인 것 같습니다. 그 덕에 우리 어린이들이 훌륭한 터전에서 
-    즐겁고 행복한 어린 시절을 보내고 있는 거 같습니다.<br><br>
 
-    어린이들이 어떻게 두근에서 재밌게 보내고 있는지 좀 더 보여주고 싶고, 
-    아이들의 즐거운 터전 생활을 위해 아마분들과 교사분들이 어떤 수고를 하고 계신지 감사함도 전하고 싶어 
-    <strong>소식지를 만들었습니다</strong>.<br><br>
+  <!-- 표지/헤더 -->
+  <header class="wrap section">
+    <div class="card hero">
+      <div class="hero-inner">
+        <div>
+          <span class="badge">2025년 10월호</span>
+          <h1>두근두근 방과후 소식지</h1>
+          <p class="meta">🍁 가을빛 속에서 자라는 아이들의 하루, 두근의 이야기</p>
 
-    편집인 생활이사 바스켓의 노고에 감사드리고, 
-    앞으로 소식지가 더욱 풍성해질 수 있도록 두근 아마분들의 <strong>많은 관심</strong> 부탁드리겠습니다.<br><br>
+          <nav class="quicknav" aria-label="바로가기">
+            <a href="#greeting">💌 이사장 인사</a>
+            <a href="#highlights">✨ 하이라이트</a>
+            <a href="#gallery">🖼 활동 사진</a>
+            <a href="#feature">🏓 특집 기사</a>
+            <a href="#next">📅 다음 달</a>
+            <a href="#thanks">🙏 감사합니다</a>
+          </nav>
 
-    감사합니다.
-  </p>
-  <p style="text-align: right; font-weight: bold; font-size: 1.1em; margin-top: 2em;">
-    과천두근두근공동체교육사회적협동조합<br>
-    이사장 딱지 드림
-  </p>
-</div>
-
-    <div class="section">
-      <h2>지난 달 이야기</h2>
-      <div id="dynamic-story"></div>
-      <h3 style="font-size: 1.5em; margin-top: 20px; color: #4169e1;">아마활동 후기</h3>
-      <p>아마활동 생생후기를 전합니다. 참여해주신 아마분들 노력 덕분에 아이들은 즐거워하고, 아마분들은 일상에서 잠깐 벗어나 많은 아이들과 함께하는 특별한 경험을 선물받았습니다.</p>
-      <div class="image-frame">
-        <img src="아마활동_01.jpg" alt="아마활동 01이미지">
-        <img src="아마활동_02.jpg" alt="아마활동 02이미지">
-        <img src="아마활동_03.jpg" alt="아마활동 03이미지">
-        <img src="아마활동_04.jpg" alt="아마활동 04이미지">
-        <img src="아마활동_0425.jpg" alt="아마활동 이미지">
-      </div>
-      <h3 style="font-size: 1.5em; margin-top: 20px; color: #4169e1;">신입조합원 교육 소식</h3>
-      <p>지난 주 금요일(4월 25일) 신입조합원 교육이 잘 마무리되었습니다. 교육위에서 직접 요리까지 해서 즐겁고 화기애애한 시간을 가졌습니다. 작은눈 대표교사의 두근 교육설명회 1시간, 그리고 조합원교육 + 선배조합원들과 소소한 나누기 등으로 알찬 시간을 가졌습니다. (교육소위 하사가 짜장 재료를 모두 지원해주셔서 비용이 많이 절감되었습니다 ^^) 교육에 참여해주신 신입조합원께서 감동 한가득 남겨주셔서 힘든 준비시간을 모두 잊게 만들었습니다. 함께 애써주신 교육소위분들께 감사인사드립니다. [교육이사 양파]</p>
-      <div class="image-frame">
-        <img src="신입조합원교육_01_0425.jpg" alt="신입조합원 교육 이미지 1">
-        <img src="신입조합원교육_02_0425.jpg" alt="신입조합원 교육 이미지 2">
-        <img src="신입조합원교육_03_0425.jpg" alt="신입조합원 교육 이미지 3">
-        <img src="신입조합원교육_04_0425.jpg" alt="신입조합원 교육 이미지 4">
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>학년별 주요 활동</h2>
-      <ul>
-        <li>합창(5-6학년)</li>
-        <li>리코더(1-4학년)</li>
-        <li>댄스(2,3,5학년)</li>
-        <li>해방 시 클럽(4학년&태준)</li>
-        <li>전체나들이(1-6학년)</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>🌸 올해 첫 두근 전체나들이, 아이들과 함께한 특별한 하루 </h2>
-      <p>과천에 살고 있는 우리에게 서울대공원은 뒷동산 같은 곳, 과천과학관은 집 앞 골목처럼 익숙한 장소입니다. 하지만 아이들과 함께 손을 잡고, 웃음소리 가득한 봄바람을 타고 다시 찾은 그곳은 분명 조금 더 특별하게 다가왔습니다.
-
-4월부터 두근 방과후는 격주 수요일마다 전체나들이를 떠나기로 했고, 그 첫걸음으로 4월 16일에는 서울대공원, 4월 30일에는 국립과천과학관에 다녀왔습니다.
-
-서울대공원 나들이 날, “거기 맨날 가는 데잖아~” 하던 아이들도 막상 도착하자 눈이 반짝였습니다. 넓은 동물원 산책로를 따라 기린을 보고, 사자를 보고, 배고픈 곰의 낮잠을 구경하다 보니 일상 속 익숙한 장소가 새롭게 느껴졌지요. 가벼운 나들이지만, 함께 걷고 이야기를 나누는 동안 친구들 사이도 조금 더 가까워졌습니다.
-
-2주 뒤, 과천과학관에서는 호기심이 폭발했습니다. 로봇을 움직이고, 별자리를 찾고, 미래 자동차를 상상하며 “이건 뭐지?”, “이건 내가 해볼래!” 소리로 가득 찼던 하루. 익숙한 장소였지만, 아이들의 눈빛은 누구보다 진지했고, 즐거움은 가득했습니다.
-
-이제 두근의 격주 수요일은 배움과 우정이 자라는 날이 되었습니다. 가까이 있지만 자주 누리지 못했던 공간을 다시 걸으며, 익숙함 속에서 새로움을 찾은 아이들. 다음 나들이가 벌써 기다려집니다. [작은눈 대표교사]</p>
-    </div>
-
-    <div class="section">
-      <h2>아이들 활동사진</h2>
-      <ul>
-        <li>학년별 주요활동사진 모음입니다.</li>
-      </ul>
-      <div class="gallery">
-        <img src="활동01.jpg" alt="활동01">
-        <img src="활동02.jpg" alt="활동02">
-        <img src="활동03.jpg" alt="활동03">
-        <img src="활동04.jpg" alt="활동04">
-        <img src="활동05.jpg" alt="활동05">
-        <img src="활동06.jpg" alt="활동06">
-        <img src="활동07.jpg" alt="활동07">
-        <img src="활동08.jpg" alt="활동08">
-        <img src="활동09.jpg" alt="활동09">
-        <img src="활동10.jpg" alt="활동10">
-        <img src="활동11.jpg" alt="활동11">
-        <img src="활동12.jpg" alt="활동12">
-        <img src="활동13.jpg" alt="활동13">
-        <img src="활동14.jpg" alt="활동14">
-        <img src="활동15.jpg" alt="활동15">
-        <img src="활동16.jpg" alt="활동16">
+          <div class="logo-row">
+            <img class="logo" src="images/logo.png" alt="두근두근 로고" />
+            <div style="font-size:14px;line-height:1.45">
+              <div><strong>발행</strong> 운영위원회 · <strong>편집</strong> 생활이사</div>
+              <div>문의 02-504-7643 · 블로그/카페/인스타 아래 링크</div>
+            </div>
+          </div>
         </div>
-    </div>
 
-    <div class="section">
-      <h2>조합원 칼럼</h2>
-      <ul>
-        <li>4학년 방모임에서 사춘기 이야기가 나와서 생각나는 실험이 있어서 말씀드립니다. 미국의 Harlow 심리학 교수는 대리모 실험으로 유명합니다. 갓 태어난 원숭이를 엄마에게 떼어서, 철사인형과 헝겊인형을 고르게했지요.
-            그들은 대부분의 시간을 헝겊인형(헝겊엄마)과 함께 보냈습니다. 심지어 우유병이 철사엄마쪽에 있어도 말이지요.교수는 부드러운 헝겊의 접촉이 위안과 안정의 감정을 주며 이것이 사랑의 원천이라 결론을 내렸습니다.        
-            그런데 잘 알려지지 않은 중요한 실험이 더 있습니다. 헝겊엄마조차 없이 혼자 자란 아기원숭이는 불안증세를 보였는데, 친구 원숭이들과 함께 지내도록하자 정상적인 모습으로 돌아왔죠.
-            그들은 마치 열차처럼 붙어있어 추추원숭이(choo choo monkey)이라 이름 붙였습니다. Harlow교수는 엄마애착은 중요하지만 동료애착이 더 필수적이라고 생각하게됩니다. 반면, 엄마와만 지낸 원숭이는 사회화가 어려웠지요. 
-            사춘기는 아마도 부모로부터 이별을 준비하고, 그렇지만 더 나은 사회화를 향한 신호일 수 있습니다. 걱정되고 불안한 것은 부모만이 아니고 본인들이 더할 것입니다. 응원의 마음으로 그 아이들을 놓아줘야할 때가 된 것인지 모릅니다.</li>
-        <li>글 : 병장(21기오지음빠) (단톡방 내용 중 좋은 글 발췌하였습니다.)</li>
-      </ul>
-      <div class="gallery">
-        <img src="원숭이실험01.jpg" alt="원숭이실험01">
-        <img src="원숭이실험02.jpg" alt="원숭이실험02">
+        <!-- 표지 이미지 (images/cover.jpg 교체) -->
+        <div class="hero-illust" role="img" aria-label="10월호 표지 이미지"></div>
       </div>
     </div>
+  </header>
 
-    <div class="section">
-      <h2>다음 달 미리보기</h2>
-      <p>5월에는 어린이날 기념 특별활동과 터전 상반기 대청소가 예정되어 있어요. 기대해 주세요!</p>
+  <main class="wrap">
+
+    <!-- 이사장 인사 -->
+    <section id="greeting" class="section card">
+      <h2><span class="dot"></span> 💌 이사장 인사말</h2>
+      <!-- TODO: 인사말 텍스트 입력 -->
+      <p>
+        어느덧 가을입니다. 선선한 바람 속에서 아이들이 한 뼘 더 성장해 가는 모습을 함께 지켜봅니다.
+        두근의 하루는 놀고, 만나고, 협력하며 자라는 시간입니다. 10월에도 우리 모두의 응원이 아이들의
+        용기가 되기를 바랍니다.
+      </p>
+      <p style="margin-top:1rem">과천두근두근공동체교육사회적협동조합<br />이사장 드림</p>
+    </section>
+
+    <!-- 이달의 하이라이트 -->
+    <section id="highlights" class="section card">
+      <h2><span class="dot"></span> ✨ 10월 하이라이트</h2>
       <ul>
-        <li>🎉 터전 과자파티</li>
-        <li>🧹 터전 대청소</li>
+        <!-- TODO: 항목 수정/추가 -->
+        <li>🎃 가을 소풍 & 숲놀이 주간</li>
+        <li>📚 몰입독서 가을 시즌(1~2학년) · 책나눔 마켓</li>
+        <li>⚽ 문원 체육공원 협동놀이 데이</li>
+        <li>🛠 목공/바느질 공작소 — 할로윈 소품 만들기</li>
       </ul>
-      <div class="gallery">
-        <img src="먹고싶은과자.jpg" alt="과자파티">
-        <img src="과자파티배너.jpg" alt="과자파티배너">
-        <img src="두근대청소후기.jpg" alt="24년터전대청소">
+    </section>
+
+    <!-- 활동 사진 갤러리 -->
+    <section id="gallery" class="section card">
+      <h2><span class="dot"></span> 🖼 활동 사진</h2>
+      <p style="margin:6px 0 14px;color:var(--sub)">* 이미지는 <code>images/</code> 폴더에 업로드한 파일명으로 교체하세요.</p>
+      <div class="grid cols-3">
+        <!-- TODO: 파일명 교체 -->
+        <figure class="thumb"><img src="images/pic01.jpg" alt="활동 사진 1"></figure>
+        <figure class="thumb"><img src="images/pic02.jpg" alt="활동 사진 2"></figure>
+        <figure class="thumb"><img src="images/pic03.jpg" alt="활동 사진 3"></figure>
+        <figure class="thumb"><img src="images/pic04.jpg" alt="활동 사진 4"></figure>
+        <figure class="thumb"><img src="images/pic05.jpg" alt="활동 사진 5"></figure>
+        <figure class="thumb"><img src="images/pic06.jpg" alt="활동 사진 6"></figure>
       </div>
-    </div>
+    </section>
 
-    <div class="section">
-      <h2>감사합니다</h2>
-      <p>아마 활동에 참여해 주신 분들:</p>
+    <!-- 특집 기사 -->
+    <section id="feature" class="section card">
+      <h2><span class="dot"></span> 🏓 특집</h2>
+      <!-- TODO: 기사 제목/본문 교체 -->
+      <h3 style="margin:.2rem 0 1rem">제목 자리 — 아이들의 놀이는 곧 성장의 무대</h3>
+      <p>
+        아이들이 스스로 계획하고 친구와 협력하며 이뤄낸 순간들을 모았습니다. 놀이가 경쟁을 이기고,
+        시도와 실패가 배움이 되는 장면들—두근의 하루가 보여 준 작은 기적들을 기록합니다.
+      </p>
+    </section>
+
+    <!-- 다음 달 미리보기 -->
+    <section id="next" class="section card">
+      <h2><span class="dot"></span> 📅 다음 달 미리보기</h2>
+      <div class="grid cols-2">
+        <div>
+          <ul>
+            <!-- TODO: 내용 갱신 -->
+            <li>🎨 전시 관람 — 지역 미술관</li>
+            <li>🚌 전체 나들이</li>
+            <li>🎲 보드게임/마당놀이 데이</li>
+            <li>🎤 작은 연말무대(준비 시작)</li>
+          </ul>
+        </div>
+        <div>
+          <table>
+            <thead><tr><th>일자</th><th>행사</th><th>비고</th></tr></thead>
+            <tbody>
+              <tr><td>11/05</td><td>숲 체험</td><td>우천 시 실내 대체</td></tr>
+              <tr><td>11/15</td><td>가을 바자회</td><td>자원봉사 신청</td></tr>
+              <tr><td>11/28</td><td>작은 발표회 리허설</td><td>학년별 일정</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 감사합니다 (아마/후원 등) -->
+    <section id="thanks" class="section card">
+      <h2><span class="dot"></span> 🙏 감사합니다</h2>
+      <p>두근의 하루는 함께 만든 시간입니다. 도움 주신 모든 분들께 진심으로 감사드립니다.</p>
+      <!-- TODO: 명단/표 삽입 가능 -->
+    </section>
+
+    <!-- 지난 호 보기 -->
+    <section class="section card">
+      <h2><span class="dot"></span> 🗂 지난 호 보기</h2>
       <ul>
-        <li>21기 오지음맘 (교육아마)</li>
-        <li>21기 김수인맘 (교육아마)</li>
-        <li>21기 한결맘 (주방아마)</li>
-        <li>22기 강서연맘 (총회돌봄아마)</li>
-        <li>22기 문시완빠 (총회돌봄아마)</li>
-        <li>19기 이지오빠 (총회돌봄아마)</li>
-        <li>19기 이선우맘 (총회돌봄아마)</li>
-        <li>19기 이선우빠 (교육아마)</li>
-        <li>20기 임연준맘 (교육아마)</li>
-        <li>19기 방준우맘 (리코더/합창 교육아마)</li>
-        <li>21기 김수인빠 (교육아마)</li>
-        <li>21기 김주원빠 (교육아마)</li>
+        <li>📘 <a href="https://dgdg-news.github.io/august2025/" target="_blank">8월호</a></li>
+        <li>📙 <a href="https://dgdg-news.github.io/july2025/" target="_blank">7월호</a></li>
+        <li>📒 <a href="https://dgdg-news.github.io/june2025/" target="_blank">6월호</a></li>
       </ul>
-      <p>마음 내어주신 모든 분들께 감사의 마음을 전합니다!</p>
-    </div>
+    </section>
 
-    <div class="footer">
-      두근두근 방과후 소식지 | 조합가입문의: 02-504-7643
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="wrap footer">
+    <div class="social" style="margin-bottom:8px">
+      <a href="https://blog.naver.com/2g2g4kids" target="_blank">🟢 네이버 블로그</a>
+      <a href="https://cafe.naver.com/2g2g4kids" target="_blank">🟢 네이버 카페</a>
+      <a href="https://www.instagram.com/2g2g4kids" target="_blank">🟣 인스타그램</a>
     </div>
-  </div>
+    <div>두근두근방과후교육사회적협동조합 · 문의 02-504-7643</div>
+    <div style="margin-top:4px;color:#9aa4b2">© 2025 DGDG News. All rights reserved.</div>
+  </footer>
+
 </body>
 </html>
+
