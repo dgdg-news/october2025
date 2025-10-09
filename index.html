@@ -125,6 +125,36 @@
     object-fit: contain; /* ✅ 사진 전체 보이게 */
     display: block;
   }
+.hero-illust {
+  width: 100%;
+  max-width: 500px;         /* 필요 시 크기 조절 */
+  background-color: #f8f9fb;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* 🔸 전체 이미지가 프레임 안에 다 보이도록 설정 */
+.hero-illust img {
+  width: 100%;
+  height: auto;             /* 세로 비율 유지 */
+  object-fit: contain;      /* 이미지 전체 표시 (잘리지 않음) */
+  display: block;
+  border-radius: inherit;
+  background-color: #fff;   /* 여백 생길 때 배경 */
+}
+
+/* 반응형: 모바일에서 자동 줄맞춤 */
+@media (max-width: 900px) {
+  .hero-illust {
+    max-width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
   </style>
 </head>
 <body>
@@ -339,6 +369,7 @@
 
 </body>
 </html>
+
 
 
 
